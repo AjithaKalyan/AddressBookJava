@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import mvc.views.DetailViewPanel;
 import mvc.views.NameListPanel;
 
@@ -19,7 +21,7 @@ import mvc.views.NameListPanel;
  *
  * @author Admin
  */
-public class AddressBookDAOImplementation implements AddressBookDAO{
+public class AddressBookDAOImplementation implements  AddressBookDAO{
     NameListPanel list;
     Connection conn;
     Statement st;
@@ -38,6 +40,8 @@ public class AddressBookDAOImplementation implements AddressBookDAO{
            st = conn.createStatement();
            String qry;
            qry = "insert into addressbook values ('"+person.getName()+"','"+person.getMob()+"','"+person.getEmail()+"','"+person.getCity()+"')";
+         //  JOptionPane.showMessageDialog(null, "Added " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+         JOptionPane.showMessageDialog(new JFrame(), "Added the DB","Add Option", JOptionPane.ERROR_MESSAGE);
            st.executeUpdate(qry);
            conn.close();
         }
@@ -57,6 +61,7 @@ public class AddressBookDAOImplementation implements AddressBookDAO{
            conn = DBConnection.getInstance().getConnect();
            st = conn.createStatement();
            String qry="delete from addressbook where name='"+name+"'";
+           JOptionPane.showMessageDialog(new JFrame(), "Deleted in the DB","Delete Option", JOptionPane.YES_NO_OPTION);
            st.executeUpdate(qry);
            conn.close();
          }
@@ -139,6 +144,35 @@ public class AddressBookDAOImplementation implements AddressBookDAO{
          catch (SQLException ex) {
                    System.out.println("NO Records/Cannot retrieve records");
                    }
+    }
+
+    @Override
+    public DefaultListModel getSearchNames(NameListPanel namePanel, String searchcon) {
+        
+        DefaultListModel<String> dlm = new DefaultListModel<>();
+            try {
+         conn = DBConnection.getInstance().getConnect();
+            Statement stmt;
+                 stmt = conn.createStatement();
+                 searchcon=searchcon+'%';
+            String qry = "select * from AddressBook where name like '"+searchcon+"'";
+                 try (ResultSet rs = stmt.executeQuery(qry)) {
+                     while (rs.next()){
+                         String name = rs.getString(1);
+                         dlm.addElement(name);
+                     }
+                     
+                     namePanel.getJList().setModel(dlm);
+                 }
+            stmt.close();
+           conn.close();
+        }
+           catch (SQLException ex) {
+                   System.out.println(ex+"NO Records/Cannot retrieve records");
+                   }
+           
+        return dlm;
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
            
     

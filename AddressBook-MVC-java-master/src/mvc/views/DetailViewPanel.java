@@ -96,6 +96,7 @@ public class DetailViewPanel extends javax.swing.JPanel {
         button1.setLabel("button1");
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 153)));
+        setForeground(new java.awt.Color(204, 255, 204));
         setToolTipText("");
 
         jLabel1.setText("Name*");

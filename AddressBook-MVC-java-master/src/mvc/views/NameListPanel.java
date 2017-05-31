@@ -36,9 +36,7 @@ public class NameListPanel extends javax.swing.JPanel {
         initComponents();
     }
   
-   
-    
-    
+       
     
     
     public JList getJList()

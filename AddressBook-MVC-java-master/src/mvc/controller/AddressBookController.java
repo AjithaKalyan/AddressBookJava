@@ -57,12 +57,16 @@ public class AddressBookController {
                     openEdit();
                 else if(e.getSource() == view.getDelete())
                     openDelete();
+                else if(e.getSource()== view.getSearch())
+                    openSearch();
             }
         };
         
         view.getAdd().addActionListener(actionListener);
         view.getDelete().addActionListener(actionListener);
         view.getEdit().addActionListener(actionListener);
+        view.getSearch().addActionListener(actionListener);
+               
       
     }
     
@@ -153,11 +157,7 @@ public class AddressBookController {
         return valid;
                
     }
-   public static boolean isValidEmailAddress(String email) {
-    java.util.regex.Pattern p = java.util.regex.Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
-    java.util.regex.Matcher m = p.matcher(email);
-    return m.matches();
-   }
+   
      
     private void openEdit(){
         dialog =  new ContactDialog("Update Entries");
@@ -169,6 +169,7 @@ public class AddressBookController {
         view.getMainGUIFrame().setVisible(false);
         choiceListener = new ActionListener() {
             @Override
+            
             public void actionPerformed(ActionEvent e) {
                 if(e.getSource()== dialog.getSubmitButton())
                 {
@@ -199,7 +200,22 @@ public class AddressBookController {
          dialog.getSubmitButton().addActionListener(choiceListener);
          dialog.getcancelButton().addActionListener(choiceListener);
     }
-        
+         private void openSearch()
+         {
+             //JOptionPane.showMessageDialog(new JFrame(), "Added the DB","Add Option", JOptionPane.ERROR_MESSAGE); 
+            // String searchcontact,test1;
+             //searchcontact = JOptionPane.showInputDialog("Please input for search a contact: ");
+            String str = JOptionPane.showInputDialog(null, "Enter Search String : ", "rose", 1);
+             nlp = view.getNameListPanel();
+        daoimplement.getSearchNames(nlp,str);
+  //if(str != null)
+ // JOptionPane.showMessageDialog(null, "You entered the text : " + str, "Rose", 1);
+  //  else
+  //JOptionPane.showMessageDialog(null, "You pressed cancel button.", "Rose", 1);
+  
+           
+             
+         }
     private void openDelete(){
         final String name=detailPanel.getNameField().getText();
         int reply = JOptionPane.showConfirmDialog(

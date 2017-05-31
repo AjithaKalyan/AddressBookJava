@@ -13,8 +13,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 //import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.HashSet;
 import java.util.Set;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
@@ -65,10 +68,12 @@ public class AddressBookMainGUI {
       //   frame.setContentPane(new ImageIcon("D:\\Tuilps.jpg"));
       // setContentPane(new JLabel(new ImageIcon("C:\\Users\\Computer\\Downloads\\colorful design.png")));
         
+             
         contactListPanel=new NameListPanel();
         frame.getContentPane().add(contactListPanel,BorderLayout.WEST);
-        contactListPanel.setBackground(Color.red);
-        
+        contactListPanel.setBackground(Color.ORANGE);
+       // contactListPanel.setBackground(ImageIO.read(new File("D://came.bmp"));
+        // background.setBackground(ImageIO.read(new File("/path/to/your/image/on/your/disk")));
        /* JList names; 
                 names= new JList<String>(nameList);
         Component add1 = contactListPanel.add(names);*/
